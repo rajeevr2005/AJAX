@@ -1,0 +1,73 @@
+ 2. --------------------------GET method------------------------ 
+                    
+                    The $.get() method requests data from the server with an HTTP GET request. 
+                    syntax $.get(URL,data,callback,dataType); //data,callback,dataType are optional 
+                    
+                    -----------------Program 1 of get method------------------------------- 
+                    
+                    //----------index.html------------- 
+
+
+                     <!DOCTYPE html> 
+                    <html lang="en"> 
+                        <head> 
+                            <meta charset="UTF-8"> 
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+                            <title>Document</title> </head> 
+                            <body> 
+                                <form id="myForm"> <input type="text" placeholder="Enter Name" name="uname" id="uname"> 
+                                <input type="text" placeholder="Enter surname" name="surname" id="surname"> 
+                                <input type="button" value="submit" id="btn"> 
+                                </form> 
+                                
+                                <br> 
+                                
+                                <h2 id="result"></h2> 
+                                
+                                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> 
+                                
+                                <script> 
+                                
+                                $(document).ready(function(){ 
+                                    $("#btn").click(function(){ 
+                                        let uname=$("#uname").val(); 
+                                        let surname=$("#surname").val(); 
+
+                                        if(uname===""|| surname===""){ 
+                                            
+                                            alert("Please fill all detail"); 
+                                        }
+                                        else{ 
+                                            $.get( "process.php", //data kisme bhejna chahte ho 
+                                             { uname:uname,surname:surname}, 
+                                             
+                                             function(response,status,xhr){ 
+                                                $("#result").text(response); 
+                                                $("#uname").val(""); 
+                                                $("#surname").val(""); 
+                                                } ) 
+                                                } 
+                                                }) 
+                                                }) 
+                                                
+                                                </script>
+
+                                    </body>
+                                    </html>
+
+
+                                     ---------process.php file----------- 
+                                                
+                                                <?php if(isset($_GET['uname']) && isset($_GET['surname'])){ 
+                                                    
+                                                    $uname=$_GET['uname']; 
+                                                    $surname=$_GET['surname']; 
+                                                    echo "Your name is ".$uname." "." and surname is ".$surname; 
+                                                    } 
+                                                    
+                                                    ?> 
+
+
+                                       ----------------------------------------------------------------------- 
+                        //is wale form me two input field the to hmlog {uname:uname,surname:surname} aesa likhe h, 
+                        agar mere pass 10-15 input field rahta to, us time pe serialize method kaam karta h
