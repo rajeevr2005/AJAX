@@ -1,0 +1,95 @@
+ 1. Load() method 
+        
+        The jQuery load() method is a simple, but powerful AJAX method. 
+        The load() method loads data from a server and puts the returned data into the selected elements. 
+        syntax $(selector).load(URL,data,callback) //data, callback is optional 
+        
+        //responseTxt - contains the resulting content if the call succeeds. 
+        //statusTxt - contains the status of the call 
+        //xhr - contains the XMLHttpRequest object 
+        
+        -------------------Program 1------------------------ 
+        
+        //Mujhe htdocs ke ander Ajax learning ka folder bnana hai, usme file bnana hai 
+
+
+
+1. ----------Data.html file----------
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+ <h1>This is a heading</h1> 
+ <p>This is a paragraph</p> 
+
+  
+</body>
+</html>
+
+2. -------------test.txt file--------------
+
+ Hello to the future. 
+
+
+3. -------------index.html-----------------
+
+
+3. ----------index.html-------------- 
+        
+        
+        <!DOCTYPE html> 
+        <html lang="en"> 
+            <head> 
+                <meta charset="UTF-8"> 
+                <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+                <title>Document</title> 
+                </head> 
+                <body> 
+                    <div id="getdata"> 
+                        <h1>Welcome to jQuery Ajax session</h1> 
+                        <input type="button" value="submit" id="btn"> 
+                        
+                        
+                        </div> <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js">
+
+                        </script> 
+                        
+                        <script> 
+                        $(document).ready(function () { 
+                            $("#btn").click(function () { 
+                                $("#getdata").load("Data.html" ) 
+                                
+                                //Yaha pe mai Data.html wala file ko div jiska id hai getdata me load karaya hai 
+                                
+                                //2nd way agar mai chahta hu Data.html file ka sirf h1 tag hi load karau 
+                                
+                                
+                                 $("#getdata").load("Data.html h1") 
+                                 
+                                 //3rd agar jisko id diye h usse load karana ho to 
+                                  
+                                 
+                                 $("#getdata").load("Data.html #head") 
+                                 
+                                 //#head kisi ko id de dena 
+                                 // 
+                                 
+                                 //4th agar status print karana ho to kifile load hua ya nhi, respone aa raha h ya nhi 
+                                 // 
+                                 $("#getdata").load("Data.html",function(responseTxt,statusTxt,xhr){ 
+                                    
+                                    alert(responseTxt); 
+                                    alert(statusTxt); 
+                                    alert(xhr) }) 
+                                }) 
+                            }) 
+                        
+                    </script> 
+
+                    </body>
+                    </html>
