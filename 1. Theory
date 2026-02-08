@@ -1,0 +1,39 @@
+AJAX is the art/technique of exchanging data with a server and updationg parts of a web page-without reloading the whole Page.
+        Ajax is not a programming language. 
+        Ajax is a technique used by web developers in order to make website behave like desktop applications. 
+        Example of application that uses ajax are Gmail, Google, MAps, Youtube and Facebook tabs. 
+        
+        There are two types of requests/communication ways in client server architecture are: 
+        1. Synchronous 
+        2. Asynchronous 
+        
+        The keystone of AJAX is the XMLHttpRequest object. 
+        All modern browser support the XMLHttpRequest object. 
+        The XMLHttpRequest object can be used to exchange data with a server behind the scenes. 
+        This means that it is possible to update parts of a web page, without reloading the whole page. 
+        Transfer data in the form of plain text, XML or JSON format. Retrieve data from the server asynchronously. 
+        
+        
+        //GET and POST GET method 
+        
+        The length of a URL is limited to 2048 characters. 
+        GET method can't be used to send binary data. 
+        Ex:- images or word documents. 
+        
+        //POST requests It is used with sensitive data. can be used with binary data. 
+        
+        //------------------------------------------------ 
+        
+        Without jQuery, AJAX coding can be a bit tricky. 
+
+        //agar aap jquery use na karke javascript use karte h to aapko code bahut likhna padega. 
+        This means that you have to write extra code to test for different browsers. 
+        However, the jQuery team has taken care of thisfor us, so that we can write ajax functionality with only one single line of code. 
+        
+
+        jQuery AJAX methods 
+        1. Load 
+        2. Get 
+        3. Post 
+        4. ajax 
+        
