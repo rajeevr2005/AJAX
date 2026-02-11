@@ -1,73 +1,168 @@
  2. --------------------------GET method------------------------ 
+
+The $.get() method requests data from the server with an HTTP GET request. 
+syntax 
+ $.get(URL,data,callback,dataType); //data,callback,dataType are optional 
                     
-                    The $.get() method requests data from the server with an HTTP GET request. 
-                    syntax $.get(URL,data,callback,dataType); //data,callback,dataType are optional 
-                    
-                    -----------------Program 1 of get method------------------------------- 
-                    
-                    //----------index.html------------- 
+-----------------Program 1 of get method------------------------------- 
+ 
+//----------index.html------------- 
 
 
-                     <!DOCTYPE html> 
-                    <html lang="en"> 
-                        <head> 
-                            <meta charset="UTF-8"> 
-                            <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-                            <title>Document</title> </head> 
-                            <body> 
-                                <form id="myForm"> <input type="text" placeholder="Enter Name" name="uname" id="uname"> 
-                                <input type="text" placeholder="Enter surname" name="surname" id="surname"> 
-                                <input type="button" value="submit" id="btn"> 
-                                </form> 
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+<meta charset="UTF-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<title>Document</title> </head> 
+<body> 
+ <form id="myForm"> <input type="text" placeholder="Enter Name" name="uname" id="uname"> 
+    <input type="text" placeholder="Enter surname" name="surname" id="surname"> 
+    <input type="button" value="submit" id="btn"> 
+ </form> 
                                 
-                                <br> 
+ <br> 
                                 
-                                <h2 id="result"></h2> 
+  <h2 id="result"></h2> 
                                 
-                                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> 
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> 
                                 
-                                <script> 
+<script> 
                                 
-                                $(document).ready(function(){ 
-                                    $("#btn").click(function(){ 
-                                        let uname=$("#uname").val(); 
-                                        let surname=$("#surname").val(); 
+$(document).ready(function(){ 
+   $("#btn").click(function(){ 
+    let uname=$("#uname").val(); 
+    let surname=$("#surname").val(); 
 
-                                        if(uname===""|| surname===""){ 
-                                            
-                                            alert("Please fill all detail"); 
-                                        }
-                                        else{ 
-                                            $.get( "process.php", //data kisme bhejna chahte ho 
-                                             { uname:uname,surname:surname}, 
+if(uname===""|| surname===""){ 
+         alert("Please fill all detail"); 
+ }
+  else{ 
+     $.get( "process.php", //data kisme bhejna chahte ho 
+     { uname:uname,surname:surname}, 
                                              
-                                             function(response,status,xhr){ 
-                                                $("#result").text(response); 
-                                                $("#uname").val(""); 
-                                                $("#surname").val(""); 
-                                                } ) 
-                                                } 
-                                                }) 
-                                                }) 
+          function(response,status,xhr){ 
+             $("#result").text(response); 
+             $("#uname").val(""); 
+             $("#surname").val(""); 
+      } ) 
+      } 
+    }) 
+    }) 
                                                 
-                                                </script>
+   </script>
 
-                                    </body>
-                                    </html>
+   </body>
+ </html>
 
 
-                                     ---------process.php file----------- 
+ ---------process.php file----------- 
                                                 
-                                                <?php if(isset($_GET['uname']) && isset($_GET['surname'])){ 
+ <?php 
+if(isset($_GET['uname']) && isset($_GET['surname'])){ 
+         
+       $uname=$_GET['uname']; 
+       $surname=$_GET['surname']; 
+       echo "Your name is ".$uname." "." and surname is ".$surname; 
+       } 
                                                     
-                                                    $uname=$_GET['uname']; 
-                                                    $surname=$_GET['surname']; 
-                                                    echo "Your name is ".$uname." "." and surname is ".$surname; 
-                                                    } 
-                                                    
-                                                    ?> 
+       ?> 
+
+----------------------------------------------------------------------- 
+ //is wale form me two input field the to hmlog {uname:uname,surname:surname} aesa likhe h, 
+agar mere pass 10-15 input field rahta to, us time pe serialize method kaam karta h
+
+{ uname:uname,surname:surname}, iske jagah $("#myForm").serialize(), //likh dena #myForm wo form ka id hai ----------------------------------------------------------------------------------------------
 
 
-                                       ----------------------------------------------------------------------- 
-                        //is wale form me two input field the to hmlog {uname:uname,surname:surname} aesa likhe h, 
-                        agar mere pass 10-15 input field rahta to, us time pe serialize method kaam karta h
+---------------------Program 2 of GET Method----------------------------------------
+
+1. dbConnection.php file------------------------ 
+<?php 
+$host="localhost"; 
+$port=3306; 
+$dbname="college"; 
+$username="root"; 
+$password=""; 
+
+try{ 
+$conn=new PDO("mysql:host=$host;port=$port;dbname=$dbname",$username,$password); 
+$conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION); 
+echo "connection established"; 
+}
+
+catch(PDOException $e){ 
+echo "Connection failed".$e->getMessage(); 
+} 
+?>
+
+ -----------------2. Process.php file---------------------
+
+<?php 
+include('./dbConnection.php'); 
+if(isset($_GET['uname']) && isset($_GET['surname'])){ 
+$uname=$_GET['uname']; 
+$surname=$_GET['surname']; 
+
+$query=$conn->prepare("insert into student(uname,password)values('$uname','$surname')"); 
+$result=$query->execute(); 
+
+if($result){ 
+   echo "Data inserted successfully"; 
+}
+ else{ 
+   echo "Data not inserted"; 
+ } 
+} 
+
+?>
+
+ ----------------3. index.html file----------------------------- 
+
+
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title>Document</title> 
+  </head> 
+    <body> 
+      <form id="myForm"> 
+        <input type="text" placeholder="Enter Name" name="uname" id="uname"> 
+        <input type="text" placeholder="Enter surname" name="surname" id="surname"> 
+        <input type="button" value="submit" id="btn"> 
+     </form> 
+
+     <br> 
+
+    <h2 id="result"></h2> 
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> 
+      
+   <script> 
+
+   $(document).ready(function(){ 
+     $("#btn").click(function(){ 
+
+     let uname=$("#uname").val(); 
+     let surname=$("#surname").val(); 
+      if(uname===""|| surname===""){ 
+          alert("Please fill all detail"); 
+      }else{ 
+
+      $.get( "process.php", //data kisme bhejna chahte ho 
+       $("#myForm").serialize(), 
+        function(response,status,xhr){ 
+         
+         $("#result").text(response); 
+         $("#uname").val(""); 
+         $("#surname").val(""); 
+               }) 
+            } 
+           }) 
+         }) 
+     </script> 
+ </body> 
+
+</html> 
