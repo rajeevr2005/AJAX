@@ -1,0 +1,24 @@
+------------------Post method-------------------------------
+
+The $.post() method requests data from the server using an HTTP POST request.
+
+syntax
+$.post(URL,data,callback,dataType);
+
+
+//Rest all are same as get method, but we have to replace the GET keyword with the POST keyword.
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+//Difference between load and get method
+
+//Load 
+1. Loads only HTML data
+2. There are 3 parameter in load() method url,data, callback.
+3. Returns the data to a selector in html page.
+
+//GET()
+1. Loads any type of data, such as JSON and script.
+2. Sends a get request always.
+3. There are 4 parameters in get() method, url,data,callback,dataType.
+4. Returns the data to a callback function parameter.
